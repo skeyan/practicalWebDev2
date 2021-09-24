@@ -58,6 +58,8 @@ console.log("MAP (expected):", mapArr2.map(element => element * 2));
 
 // FILTER //
 /**
+ * @param callback function
+ * @return new array
  * filter() calls a provided callbackFn function once for each element in an 
  * array, and constructs a new array of all the values for which callbackFn 
  * returns a value that coerces to true. callbackFn is invoked only for indexes 
@@ -92,6 +94,8 @@ console.log("FILTER (expected):", nums.filter(num => num < 2));
 
 // SOME //
 /**
+ * @param callback function
+ * @return boolean
  * The some() method executes the callbackFn function once for each 
  * element present in the array until it finds the one where callbackFn 
  * returns a truthy value (a value that becomes true when converted to a Boolean). 
@@ -119,9 +123,34 @@ console.log("MY SOME:", someArray.mySome(element => element > 10));
 console.log("SOME (expected):", someArray.some(element => element > 10));
 
 // EVERY //
-Array.prototype.myEvery = function() {
-    
+/**
+ * @param callback function
+ * @return boolean
+ * The every method executes the provided callbackFn function once 
+ * for each element present in the array until it finds the one where 
+ * callbackFn returns a falsy value. 
+ * If such an element is found, the every method immediately returns false. 
+ * Otherwise, if callbackFn returns a truthy value for all elements, every returns true.
+ * 
+ * callbackFn is invoked only for array indexes which have assigned values. It is not 
+ * invoked for indexes which have been deleted, or which have never been assigned values.
+ * 
+ * callbackFn is invoked with three arguments: the value of the element, the index 
+ * of the element, and the Array object being traversed.
+ */
+Array.prototype.myEvery = function(callback) {
+    for (let i = 0; i < this.length; i++) {
+        if (!(callback(this[i], i, this))) {
+            return false
+        }
+    }
+    return true;
 };
+
+/* Tests for EVERY */
+const everyArray = [,1,10.1,100]; 
+console.log("MY EVERY:", everyArray.every(element => element > 10));
+console.log("EVERY (expected):", everyArray.every(element => element > 10));
 
 // REDUCE //
 Array.prototype.myReduce = function() {
