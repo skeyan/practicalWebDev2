@@ -242,13 +242,13 @@ Array.prototype.myIncludes = function(searchElement, index) {
 };
 
 /* Tests for INCLUDES */
-const includesArr = [undefined,1,2,3,4,5];
-console.log("MY INCLUDES:", includesArr.myIncludes(3, -10));
-console.log("INCLUDES (expected):", includesArr.includes(3, -10));
-console.log("MY INCLUDES:",[1, 2, NaN].myIncludes(NaN));
-console.log("INCLUDES (expected):",[1, 2, NaN].includes(NaN));
-console.log("MY INCLUDES:",[1,2,3].myIncludes(3,3));
-console.log("INCLUDES (expected):",[1,2,3].includes(3,3));
+// const includesArr = [undefined,1,2,3,4,5];
+// console.log("MY INCLUDES:", includesArr.myIncludes(3, -10));
+// console.log("INCLUDES (expected):", includesArr.includes(3, -10));
+// console.log("MY INCLUDES:",[1, 2, NaN].myIncludes(NaN));
+// console.log("INCLUDES (expected):",[1, 2, NaN].includes(NaN));
+// console.log("MY INCLUDES:",[1,2,3].myIncludes(3,3));
+// console.log("INCLUDES (expected):",[1,2,3].includes(3,3));
 
 // INDEXOF //
 /**
@@ -281,18 +281,41 @@ Array.prototype.myIndexOf = function(searchElement, index) {
 };
 
 /* Tests for INDEX OF */
-const indexArr = [2, 9, 9];
-console.log("MY INDEX OF:", indexArr.myIndexOf(2)); 
-console.log("MY INDEX OF:", indexArr.indexOf(2)); 
-console.log("MY INDEX OF:", indexArr.myIndexOf(7)); 
-console.log("MY INDEX OF:", indexArr.indexOf(7)); 
-console.log("MY INDEX OF:", indexArr.myIndexOf(2,-8)); 
-console.log("MY INDEX OF:", indexArr.indexOf(2,-8)); 
+// const indexArr = [2, 9, 9];
+// console.log("MY INDEX OF:", indexArr.myIndexOf(2)); 
+// console.log("MY INDEX OF:", indexArr.indexOf(2)); 
+// console.log("MY INDEX OF:", indexArr.myIndexOf(7)); 
+// console.log("MY INDEX OF:", indexArr.indexOf(7)); 
+// console.log("MY INDEX OF:", indexArr.myIndexOf(2,-8)); 
+// console.log("MY INDEX OF:", indexArr.indexOf(2,-8)); 
+// console.log("MY INDEX OF:", indexArr.myIndexOf(9,-2)); 
+// console.log("MY INDEX OF:", indexArr.indexOf(9,-2)); 
+
 
 // PUSH //
-Array.prototype.myPush = function() {
-
+/**
+ * @param element(s) to add to end of array
+ * @return new length
+ * The push method appends values to an array. The push method relies 
+ * on a length property to determine where to start inserting the given 
+ * values. If the length property cannot be converted into a number, 
+ * the index used is 0. This includes the possibility of length being nonexistent, 
+ * in which case length will also be created.
+ */
+Array.prototype.myPush = function(...elements) {
+    let elementIndex = 0;
+    const length = this.length;
+    for (let i = length; i < length + elements.length; i++) {
+        this[i] = elements[elementIndex];
+        elementIndex++;
+    }
+    return this.length;
 };
+
+/* Tests for PUSH */
+// let pushArr = [];
+// pushArr.myPush(1,1,1,1,1,undefined);
+// console.log(pushArr);
 
 // LASTINDEXOF //
 Array.prototype.myLastIndexOf = function() {
