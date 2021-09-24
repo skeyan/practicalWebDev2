@@ -365,9 +365,32 @@ Array.prototype.myLastIndexOf = function(searchElement, index) {
 // console.log("LAST INDEX OF (expected):", numbers.lastIndexOf(2,-2));
 
 // KEYS //
+/**
+ * @param Object
+ * @return array of strings that represent all the enumerable properties of the given object
+ * The Object.keys() method returns an array of a given object's own 
+ * enumerable property names, iterated in the same order that a normal loop would.
+ */
 Object.grabKeys = function() {
-
+    let keys = [];
+    for(const key in this) {
+        keys.push(key);
+    }
+    return keys;
 };
+
+/* Tests for KEYS */
+// const anObj = { 100: 'a', 2: 'b', 7: 'c' };
+// console.log(Object.keys(anObj)); // console: ['2', '7', '100']
+// const arr = ['a', 'b', 'c'];
+// console.log(Object.keys(arr)); // console: ['0', '1', '2']
+// const object1 = {
+//     a: 'somestring',
+//     b: 42,
+//     c: false
+// };
+// console.log(Object.keys(object1));
+// expected output: Array ["a", "b", "c"]
 
 // VALUES //
 Object.grabValues = function() {
