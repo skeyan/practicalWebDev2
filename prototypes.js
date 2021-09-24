@@ -318,9 +318,51 @@ Array.prototype.myPush = function(...elements) {
 // console.log(pushArr);
 
 // LASTINDEXOF //
-Array.prototype.myLastIndexOf = function() {
-
+/**
+ * @param searchElement, (optional) index
+ * @returns last index of the element in the array; -1 if not found
+ * The lastIndexOf() method returns the last index at which a given element 
+ * can be found in the array, or -1 if it is not present. The array is searched backwards, 
+ * starting at fromIndex.
+ * lastIndexOf compares searchElement to elements of the Array 
+ * using strict equality (the same method used by the ===, or triple-equals, operator).
+ * 
+ * index is the index at which to start searching backward. It defauls to (arr.length - 1)
+ * ie. searches the whole array. If the index is greater than or equal to the length of the 
+ * array, the whole array will be searched. If negative, it is taken as the offset from the 
+ * end of the array. Note that even when the index is negative, the array is still searched 
+ * from back to front. If the calculated index is less than 0, -1 is returned, i.e. the array 
+ * will not be searched.
+ */
+Array.prototype.myLastIndexOf = function(searchElement, index) {
+    let start = this.length - 1;
+    if (index) {
+        if (index < 0) {
+            calc = this.length + index;
+            if (calc < 0) {
+                return -1;
+            }
+            start = calc;
+        } else if (index < this.length) {
+           start = index;
+        }
+    }
+    for (let i = start; i >= 0; i--) {
+        if (this[i] == searchElement) {
+            return i;
+        }
+    }
+    return -1;
 };
+
+/* Tests for LAST INDEX OF */
+// const numbers = [2, 2, 9, 2];
+// console.log("MY LAST INDEX OF:", numbers.myLastIndexOf(2));
+// console.log("LAST INDEX OF (expected):", numbers.lastIndexOf(2));
+// console.log("MY LAST INDEX OF:", numbers.myLastIndexOf(9));
+// console.log("LAST INDEX OF (expected):", numbers.lastIndexOf(9));
+// console.log("MY LAST INDEX OF:", numbers.myLastIndexOf(2,-2));
+// console.log("LAST INDEX OF (expected):", numbers.lastIndexOf(2,-2));
 
 // KEYS //
 Object.grabKeys = function() {
