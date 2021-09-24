@@ -251,9 +251,43 @@ console.log("MY INCLUDES:",[1,2,3].myIncludes(3,3));
 console.log("INCLUDES (expected):",[1,2,3].includes(3,3));
 
 // INDEXOF //
-Array.prototype.myIndexOf = function() {
-
+/**
+ * @param searchElement, (optional) index
+ * @return first index of element in array; -1 if not found
+ * 
+ * indexOf() compares searchElement to elements of the Array 
+ * using strict equality (the same method used by the === or triple-equals operator).
+ */
+Array.prototype.myIndexOf = function(searchElement, index) {
+    let start = 0;
+    if (index) {
+        if (index < 0) {
+            calc = this.length + index;
+            if (calc > 0) {
+                start = calc;
+            }
+        } else if (index >= this.length) {
+            return false;
+        } else {
+            start = index;
+        }
+    }
+    for (let i = start; i < this.length; i++) {
+        if (this[i] === searchElement) {
+            return i;
+        }
+    }
+    return -1;
 };
+
+/* Tests for INDEX OF */
+const indexArr = [2, 9, 9];
+console.log("MY INDEX OF:", indexArr.myIndexOf(2)); 
+console.log("MY INDEX OF:", indexArr.indexOf(2)); 
+console.log("MY INDEX OF:", indexArr.myIndexOf(7)); 
+console.log("MY INDEX OF:", indexArr.indexOf(7)); 
+console.log("MY INDEX OF:", indexArr.myIndexOf(2,-8)); 
+console.log("MY INDEX OF:", indexArr.indexOf(2,-8)); 
 
 // PUSH //
 Array.prototype.myPush = function() {
