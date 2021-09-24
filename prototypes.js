@@ -39,7 +39,7 @@ arr.forEach((element, i) => console.log(element, i));
  * (optional) index of curernt element being processed, (optional) array map was called on
  */
 Array.prototype.myMap = function(callback) {
-    mapped = []
+    let mapped = [];
     for (let i = 0; i < this.length; i++) {
         if (!(i in this)) {
             continue;
@@ -57,9 +57,38 @@ console.log("MY MAP:", arr2.myMap(element => element * 2));
 console.log("MAP (expected):", arr2.map(element => element * 2));
 
 // FILTER //
-Array.prototype.myFilter = function() {
-
+/**
+ * filter() calls a provided callbackFn function once for each element in an 
+ * array, and constructs a new array of all the values for which callbackFn 
+ * returns a value that coerces to true. callbackFn is invoked only for indexes 
+ * of the array which have assigned values; it is not invoked for indexes which 
+ * have been deleted or which have never been assigned values. Array elements 
+ * which do not pass the callbackFn test are skipped, and are not included in 
+ * the new array.
+ * 
+ * callbackFn is invoked with three arguments: value of element, index of element,
+ * array object being traversed.
+ */
+Array.prototype.myFilter = function(callback) {
+    let passed = [];
+    for (let i = 0; i < this.length; i++) {
+        if (!(i in this)) {
+            continue;
+        }
+        if (callback(this[i], i, this)) {
+            passed.push(this[i]);
+        }
+    }
+    return passed;
 };
+
+/* Tests for FILTER */
+const words = ['spray', 'limit', 'elite',, 'exuberant', 'destruction', 'present'];
+const nums = [0,1,,2,3,-1, undefined];
+console.log("MY FILTER:", words.myFilter(word => word.length > 6));
+console.log("FILTER (expected):", words.filter(word => word.length > 6));
+console.log("MY FILTER:", nums.myFilter(num => num < 2));
+console.log("FILTER (expected):", nums.filter(num => num < 2));
 
 // SOME //
 Array.prototype.mySome = function() {
