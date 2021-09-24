@@ -371,28 +371,61 @@ Array.prototype.myLastIndexOf = function(searchElement, index) {
  * The Object.keys() method returns an array of a given object's own 
  * enumerable property names, iterated in the same order that a normal loop would.
  */
-Object.grabKeys = function() {
+Object.grabKeys = function(object) {
     let keys = [];
-    for(const key in this) {
-        keys.push(key);
+    for(const key in object) {
+        if (object.hasOwnProperty(key)) {
+            keys.push(key);
+        }
     }
     return keys;
 };
 
 /* Tests for KEYS */
 // const anObj = { 100: 'a', 2: 'b', 7: 'c' };
-// console.log(Object.keys(anObj)); // console: ['2', '7', '100']
+// console.log(Object.grabKeys(anObj)); // console: ['2', '7', '100']
 // const arr = ['a', 'b', 'c'];
-// console.log(Object.keys(arr)); // console: ['0', '1', '2']
+// console.log(Object.grabKeys(arr)); // console: ['0', '1', '2']
 // const object1 = {
 //     a: 'somestring',
 //     b: 42,
 //     c: false
 // };
-// console.log(Object.keys(object1));
-// expected output: Array ["a", "b", "c"]
+// console.log(Object.grabKeys(object1));
+// // expected output: Array ["a", "b", "c"]
+// console.log(Object.grabKeys({})); // []
 
 // VALUES //
-Object.grabValues = function() {
-
+/**
+ * @param object
+ * @return array containing the given object's own enumerable property values
+ * The Object.values() method returns an array of a given object's own enumerable property values, 
+ * in the same order as that provided by a for...in loop. 
+ * (The only difference is that a for...in loop enumerates properties 
+ * in the prototype chain as well.)
+ */
+Object.grabValues = function(object) {
+    let values = [];
+    for (const key in object) {
+        if (object.hasOwnProperty(key)) {
+            values.push(object[key]);
+        }
+    }
+    return values;
 };
+
+/* Tests for VALUES */
+// const object1 = {
+//     a: 'somestring',
+//     b: 42,
+//     c: false
+// };
+// console.log(Object.grabValues(object1));
+// // expected output: Array ["somestring", 42, false]
+// const arrayLikeObj2 = { 100: 'a', 2: 'b', 7: 'c' };
+// console.log(Object.grabValues(arrayLikeObj2 )); // ['b', 'c', 'a']
+// const my_obj = Object.create({}, { getFoo: { value: function() { return this.foo; } } });
+// my_obj.foo = 'bar';
+// console.log(Object.grabValues(my_obj)); // ['bar']
+// console.log(Object.grabValues('foo')); // ['f', 'o', 'o']
+// console.log(Object.grabValues({})); // []
