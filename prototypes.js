@@ -153,9 +153,64 @@ console.log("MY EVERY:", everyArray.every(element => element > 10));
 console.log("EVERY (expected):", everyArray.every(element => element > 10));
 
 // REDUCE //
-Array.prototype.myReduce = function() {
+/**
+ * @param callback, (optional) value
+ * @return value
+ * callbackfn should be a function that takes four arguments. 
+ * reduce calls the callback, as a function, once for each element 
+ * after the first element present in the array, in ascending order.
+ * 
+ * callbackfn is called with four arguments: the previousValue (value from the previous call to callbackfn),
+ * the currentValue (value of the current element), the currentIndex, and the object being traversed
+ * 
+ * The first time that callback is called, the previousValue and currentValue can be one of two values:
+ * 1. If an initialValue was supplied in the call to reduce, then previousValue will be equal to 
+ * initialValue and currentValue will be equal to the first value in the array.
+ * 2. If no initialValue was supplied, then previousValue will be equal to the first value in the 
+ * array and currentValue will be equal to the second.
+ * 
+ * It is a TypeError if the array contains no elements and initialValue is not provided.
+ */
+Array.prototype.myReduce = function(callback, initialValue) {
+    // TypeError
+    if (this.length == 0 && initialValue == undefined) {
+        throw new Error(TypeError);
+    }
 
+    // Edge cases
+    if (this.length == 1 && initialValue == undefined) {
+        return this[0]
+    }
+    if (initialValue && this.length == 0) {
+        return initialValue;
+    }
+
+    // Other cases
+    let accumulator = initialValue || this[0];
+    const start = initialValue ? 0 : 1;
+    for (let i = start; i < this.length; i++) {
+        if (!(i in this)) {
+            continue;
+        }
+        result = callback(accumulator, this[i], i, this)
+        accumulator = result;
+    }
+    return accumulator;
 };
+
+/* Tests for REDUCE */
+const getSum = (a, b) => a + b;
+console.log("MY REDUCE:", [1, 100].myReduce(getSum, 50));
+console.log("REDUCE (expected):", [1, 100].reduce(getSum, 50));
+console.log("MY REDUCE:", [1, 100].myReduce(getSum));
+console.log("REDUCE (expected):", [1, 100].reduce(getSum));
+console.log("MY REDUCE:", [1].myReduce(getSum));
+console.log("REDUCE (expected):", [1].reduce(getSum));
+console.log("MY REDUCE:", [1,29,230,,-10].myReduce(getSum, 1));
+console.log("REDUCE (expected):", [1,29,230,,-10].reduce(getSum, 1));
+
+// console.log("MY REDUCE:", [].myReduce(getSum));
+// console.log("REDUCE (expected):", [].reduce(getSum));
 
 // INCLUDES //
 Array.prototype.myIncludes = function() {
