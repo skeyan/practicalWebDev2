@@ -219,9 +219,22 @@ Array.prototype.myReduce = function(callback, initialValue) {
  * The includes() method determines whether an array includes a 
  * certain value among its entries, returning true or false as appropriate.
  */
-Array.prototype.myIncludes = function(searchElement) {
-    for (let i = 0; i < this.length; i++) {
-        if (this[i] == searchElement) {
+Array.prototype.myIncludes = function(searchElement, index) {
+    let start = 0;
+    if (index) {
+        if (index < 0) {
+            calc = this.length + index;
+            if (calc > 0) {
+                start = calc;
+            }
+        } else if (index >= this.length) {
+            return false;
+        } else {
+            start = index;
+        }
+    }
+    for (let i = start; i < this.length; i++) {
+        if (this[i] == searchElement || (Number.isNaN(this[i]) && Number.isNaN(searchElement))) {
             return true;
         }
     }
@@ -229,9 +242,13 @@ Array.prototype.myIncludes = function(searchElement) {
 };
 
 /* Tests for INCLUDES */
-const includesArr = [1,2,3,undefined,,4,5];
-console.log("MY INCLUDES:", includesArr.myIncludes(2));
-console.log("INCLUDES (expected):", includesArr.includes(2));
+const includesArr = [undefined,1,2,3,4,5];
+console.log("MY INCLUDES:", includesArr.myIncludes(3, -10));
+console.log("INCLUDES (expected):", includesArr.includes(3, -10));
+console.log("MY INCLUDES:",[1, 2, NaN].myIncludes(NaN));
+console.log("INCLUDES (expected):",[1, 2, NaN].includes(NaN));
+console.log("MY INCLUDES:",[1,2,3].myIncludes(3,3));
+console.log("INCLUDES (expected):",[1,2,3].includes(3,3));
 
 // INDEXOF //
 Array.prototype.myIndexOf = function() {
