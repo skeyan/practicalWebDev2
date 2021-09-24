@@ -19,8 +19,8 @@ Array.prototype.myEach = function(callback) {
 };
 
 /* Tests for FOR EACH */
-arr = [1,,2,3]
-arr2 = [10,12,14]
+let arr = [1,,2,3];
+let arr2 = [10,12,14];
 console.log("MY EACH:");
 arr.myEach((element, i) => console.log(element, i));
 console.log("FOR EACH (expected):");
@@ -50,11 +50,11 @@ Array.prototype.myMap = function(callback) {
 };
 
 /* Tests for MAP */
-arr = [1,undefined,2,3]
-arr2 = [10,12,14]
-arr3 = [1,,2,3]
-console.log("MY MAP:", arr2.myMap(element => element * 2));
-console.log("MAP (expected):", arr2.map(element => element * 2));
+const mapArr = [1,undefined,2,3];
+const mapArr2 = [10,12,14];
+const mapArr3 = [1,,2,3];
+console.log("MY MAP:", mapArr2.myMap(element => element * 2));
+console.log("MAP (expected):", mapArr2.map(element => element * 2));
 
 // FILTER //
 /**
@@ -91,13 +91,36 @@ console.log("MY FILTER:", nums.myFilter(num => num < 2));
 console.log("FILTER (expected):", nums.filter(num => num < 2));
 
 // SOME //
-Array.prototype.mySome = function() {
-
+/**
+ * The some() method executes the callbackFn function once for each 
+ * element present in the array until it finds the one where callbackFn 
+ * returns a truthy value (a value that becomes true when converted to a Boolean). 
+ * If such an element is found, some() immediately returns true. 
+ * Otherwise, some() returns false. 
+ * 
+ * callbackFn is invoked only for indexes of the array with assigned values. 
+ * It is not invoked for indexes which have been deleted or which have never been assigned values.
+ * 
+ * callbackFn is invoked with three arguments: the value of the element, 
+ * the index of the element, and the Array object being traversed.
+ */
+Array.prototype.mySome = function(callback) {
+    for (let i = 0; i < this.length; i++) {
+        if (callback(this[i], i, this)) {
+            return true;
+        }
+    }
+    return false;
 };
+
+/* Tests for SOME */
+const someArray = [-10,0,3,undefined,10.1,10]; 
+console.log("MY SOME:", someArray.mySome(element => element > 10));
+console.log("SOME (expected):", someArray.some(element => element > 10));
 
 // EVERY //
 Array.prototype.myEvery = function() {
-
+    
 };
 
 // REDUCE //
