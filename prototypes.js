@@ -19,12 +19,12 @@ Array.prototype.myEach = function(callback) {
 };
 
 /* Tests for FOR EACH */
-let arr = [1,,2,3];
-let arr2 = [10,12,14];
-console.log("MY EACH:");
-arr.myEach((element, i) => console.log(element, i));
-console.log("FOR EACH (expected):");
-arr.forEach((element, i) => console.log(element, i));
+// let arr = [1,,2,3];
+// let arr2 = [10,12,14];
+// console.log("MY EACH:");
+// arr.myEach((element, i) => console.log(element, i));
+// console.log("FOR EACH (expected):");
+// arr.forEach((element, i) => console.log(element, i));
 
 // MAP //
 /**
@@ -50,11 +50,11 @@ Array.prototype.myMap = function(callback) {
 };
 
 /* Tests for MAP */
-const mapArr = [1,undefined,2,3];
-const mapArr2 = [10,12,14];
-const mapArr3 = [1,,2,3];
-console.log("MY MAP:", mapArr2.myMap(element => element * 2));
-console.log("MAP (expected):", mapArr2.map(element => element * 2));
+// const mapArr = [1,undefined,2,3];
+// const mapArr2 = [10,12,14];
+// const mapArr3 = [1,,2,3];
+// console.log("MY MAP:", mapArr2.myMap(element => element * 2));
+// console.log("MAP (expected):", mapArr2.map(element => element * 2));
 
 // FILTER //
 /**
@@ -85,12 +85,12 @@ Array.prototype.myFilter = function(callback) {
 };
 
 /* Tests for FILTER */
-const words = ['spray', 'limit', 'elite',, 'exuberant', 'destruction', 'present'];
-const nums = [0,1,,2,3,-1, undefined];
-console.log("MY FILTER:", words.myFilter(word => word.length > 6));
-console.log("FILTER (expected):", words.filter(word => word.length > 6));
-console.log("MY FILTER:", nums.myFilter(num => num < 2));
-console.log("FILTER (expected):", nums.filter(num => num < 2));
+// const words = ['spray', 'limit', 'elite',, 'exuberant', 'destruction', 'present'];
+// const nums = [0,1,,2,3,-1, undefined];
+// console.log("MY FILTER:", words.myFilter(word => word.length > 6));
+// console.log("FILTER (expected):", words.filter(word => word.length > 6));
+// console.log("MY FILTER:", nums.myFilter(num => num < 2));
+// console.log("FILTER (expected):", nums.filter(num => num < 2));
 
 // SOME //
 /**
@@ -118,9 +118,9 @@ Array.prototype.mySome = function(callback) {
 };
 
 /* Tests for SOME */
-const someArray = [-10,0,3,undefined,10.1,10]; 
-console.log("MY SOME:", someArray.mySome(element => element > 10));
-console.log("SOME (expected):", someArray.some(element => element > 10));
+// const someArray = [-10,0,3,undefined,10.1,10]; 
+// console.log("MY SOME:", someArray.mySome(element => element > 10));
+// console.log("SOME (expected):", someArray.some(element => element > 10));
 
 // EVERY //
 /**
@@ -148,9 +148,9 @@ Array.prototype.myEvery = function(callback) {
 };
 
 /* Tests for EVERY */
-const everyArray = [,1,10.1,100]; 
-console.log("MY EVERY:", everyArray.every(element => element > 10));
-console.log("EVERY (expected):", everyArray.every(element => element > 10));
+// const everyArray = [,1,10.1,100]; 
+// console.log("MY EVERY:", everyArray.every(element => element > 10));
+// console.log("EVERY (expected):", everyArray.every(element => element > 10));
 
 // REDUCE //
 /**
@@ -199,23 +199,39 @@ Array.prototype.myReduce = function(callback, initialValue) {
 };
 
 /* Tests for REDUCE */
-const getSum = (a, b) => a + b;
-console.log("MY REDUCE:", [1, 100].myReduce(getSum, 50));
-console.log("REDUCE (expected):", [1, 100].reduce(getSum, 50));
-console.log("MY REDUCE:", [1, 100].myReduce(getSum));
-console.log("REDUCE (expected):", [1, 100].reduce(getSum));
-console.log("MY REDUCE:", [1].myReduce(getSum));
-console.log("REDUCE (expected):", [1].reduce(getSum));
-console.log("MY REDUCE:", [1,29,230,,-10].myReduce(getSum, 1));
-console.log("REDUCE (expected):", [1,29,230,,-10].reduce(getSum, 1));
+// const getSum = (a, b) => a + b;
+// console.log("MY REDUCE:", [1, 100].myReduce(getSum, 50));
+// console.log("REDUCE (expected):", [1, 100].reduce(getSum, 50));
+// console.log("MY REDUCE:", [1, 100].myReduce(getSum));
+// console.log("REDUCE (expected):", [1, 100].reduce(getSum));
+// console.log("MY REDUCE:", [1].myReduce(getSum));
+// console.log("REDUCE (expected):", [1].reduce(getSum));
+// console.log("MY REDUCE:", [1,29,230,,-10].myReduce(getSum, 1));
+// console.log("REDUCE (expected):", [1,29,230,,-10].reduce(getSum, 1));
 
 // console.log("MY REDUCE:", [].myReduce(getSum));
 // console.log("REDUCE (expected):", [].reduce(getSum));
 
 // INCLUDES //
-Array.prototype.myIncludes = function() {
-
+/**
+ * @param searchElement, (optional) index 
+ * @return boolean 
+ * The includes() method determines whether an array includes a 
+ * certain value among its entries, returning true or false as appropriate.
+ */
+Array.prototype.myIncludes = function(searchElement) {
+    for (let i = 0; i < this.length; i++) {
+        if (this[i] == searchElement) {
+            return true;
+        }
+    }
+    return false;
 };
+
+/* Tests for INCLUDES */
+const includesArr = [1,2,3,undefined,,4,5];
+console.log("MY INCLUDES:", includesArr.myIncludes(2));
+console.log("INCLUDES (expected):", includesArr.includes(2));
 
 // INDEXOF //
 Array.prototype.myIndexOf = function() {
